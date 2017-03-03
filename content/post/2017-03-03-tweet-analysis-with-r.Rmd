@@ -9,6 +9,6 @@ tags:
   - tidyverse
 ---
 
-In this blog, I am going to use various R packages mainly from the tidyverse package by [Hadley wickham](http://hadley.nz/) to analyze over 20k tweets from [lordmwesh](https://twitter.com/lordmwesh) twitter archive.
+In this blog, I am going to use various R packages mainly from the tidyverse package by [Hadley wickham](http://hadley.nz/) to analyze over 20k tweets from twitter archive of  [lordmwesh](https://twitter.com/lordmwesh).
 
 [lordmwesh](https://twitter.com/lordmwesh) is an ICT policy expert with vast skill in Internet governance. He was extremely instrumental in my formative stages of my career and continue to walk with me in my journey of data analytics.
