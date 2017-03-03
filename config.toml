@@ -18,8 +18,8 @@ publishDir = "docs"
     name = "GitHub"
     url = "https://github.com/smutuvi/blog"
 [[menu.main]]
-    name = "Blogger"
-    url = "https://applyr.blogspot.com"  
+    name = "Blog"
+    url = "https://smutuvi.github.io/blog"  
 [[menu.main]]
     name = "Twitter"
     url = "https://twitter.com/smutuvi"
