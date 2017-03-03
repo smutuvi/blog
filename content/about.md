@@ -1,8 +1,9 @@
 ---
 title: "About"
-date: "2016-05-05T21:48:51-07:00"
+date: "2017-03-03T21:48:51-07:00"
 ---
 
-This is a collection of posts that are too long for [Twitter](http://www.twitter.com/smutuvi) but too short and trivial for [my blog](http://smutuvi.github.io). Mostly, it consists of shredded pieces of code I wish to remember. 
+This is a collection of posts on data analysis and visualization from a pragmatic perspective with little or no regard to esoteric concepts.
 
-See [LinkedIn](https://www.linkedin.com/in/simecekpetr) for my CV, [Google Scholar](https://scholar.google.com/citations?user=248ewekAAAAJ&hl=en) for my publications and [Kaggle](https://www.kaggle.com/simecek) for my latest obsession.
+[This blog](http://smutuvi.github.io) mostly consists of shredded pieces of code which may be too long for [Twitter](http://www.twitter.com/smutuvi). 
+
