@@ -9,7 +9,7 @@
     <atom:link href="https://smutuvi.github.io/blog/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Tweet Analysis with R</title>
+      <title>Twitter Data Analysis with R</title>
       <link>https://smutuvi.github.io/blog/2017/03/03/tweet-analysis-with-r/</link>
       <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
       
@@ -20,7 +20,7 @@
 &lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
 &lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
 &lt;p&gt;In this blog, I am going to use various R packages mainly from the tidyverse package by &lt;a href=&#34;http://hadley.nz/&#34;&gt;Hadley wickham&lt;/a&gt; to analyze over 20k tweets from twitter archive of &lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordmwesh&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordmwesh&lt;/a&gt; is an ICT policy expert with vast skill in Internet governance. He was extremely instrumental in my formative stages of my career and continue to walk with me in my journey of data analytics.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordmwesh&lt;/a&gt; is an ICT policy expert with vast experience in Internet governance. He was extremely instrumental in my formative stages of my career and continue to walk with me in my journey of data analytics.&lt;/p&gt;
 </description>
     </item>
     
