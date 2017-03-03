@@ -1,0 +1,40 @@
+baseurl = "https://smutuvi.github.io/blog/"
+relativeurls = true
+languageCode = "en-us"
+title = "Data Analytics"
+theme = "hugo-lithium-theme"
+googleAnalytics = "UA-90647482-1"
+disqusShortname = "https-smutuvi-github-io-blog"
+ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
+publishDir = "docs"
+
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
+
+[[menu.main]]
+    name = "About"
+    url = "/about/"
+[[menu.main]]
+    name = "GitHub"
+    url = "https://github.com/smutuvi/blog"
+[[menu.main]]
+    name = "Blogger"
+    url = "https://applyr.blogspot.com"  
+[[menu.main]]
+    name = "Twitter"
+    url = "https://twitter.com/smutuvi42"
+
+[params]
+    description = "A website built through Hugo and blogdown."
+    disqus_url = "https://smutuvi.github.io/"
+
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion = "9.9.0"
+    highlightjsLang = ["r", "yaml"]
+    highlightjsTheme = "github"
+
+    [params.logo]
+    url = "logo.png"
+    width = 100
+    height = 100
+    alt = "Logo"
