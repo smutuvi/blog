@@ -1,0 +1,14 @@
+---
+title: Tweet Analysis with R
+author: mutuvi
+date: '2017-03-03'
+slug: tweet-analysis-with-r
+categories:
+  - '2017'
+tags:
+  - tidyverse
+---
+
+In this blog, I am going to use various R packages mainly from the tidyverse package by [Hadley wickham](http://hadley.nz/) to analyze tweets from [lordmwesh](https://twitter.com/lordmwesh) twitter.
+
+[lordmwesh](https://twitter.com/lordmwesh) was generous enough to share his twitter archive comprising over 20K tweets

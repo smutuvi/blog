@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2017 on Data Analytics</title>
+    <link>https://smutuvi.github.io/blog/categories/2017/index.xml</link>
+    <description>Recent content in 2017 on Data Analytics</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://smutuvi.github.io/blog/categories/2017/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tweet Analysis with R</title>
+      <link>https://smutuvi.github.io/blog/2017/03/03/tweet-analysis-with-r/</link>
+      <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://smutuvi.github.io/blog/2017/03/03/tweet-analysis-with-r/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;p&gt;In this blog, I am going to use various R packages mainly from the tidyverse package by &lt;a href=&#34;http://hadley.nz/&#34;&gt;Hadley wickham&lt;/a&gt; to analyze tweets from &lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordmwesh&lt;/a&gt; twitter.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordmwesh&lt;/a&gt; was generous enough to share his twitter archive comprising over 20K tweets&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
