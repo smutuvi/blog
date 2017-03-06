@@ -27,7 +27,7 @@ count_tweets <- tweets %>% summarise("Total Tweets"=n())
 count_tweets
 ```
 
-What was lordMwesh's tweeting rate over the years?
+How has lordMwesh been tweeting over the years?
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tweets$timestamp <- ymd_hms(tweets$timestamp)
