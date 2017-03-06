@@ -2,45 +2,45 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>/about/</loc>
+    <loc>https://smutuvi.github.io/blog/about/</loc>
     <lastmod>2017-03-03T21:48:51-07:00</lastmod>
   </url>
   
   <url>
-    <loc>/2017/03/03/twitter-data-analysis-with-r/</loc>
+    <loc>https://smutuvi.github.io/blog/2017/03/03/twitter-data-analysis-with-r/</loc>
     <lastmod>2017-03-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/2017/</loc>
+    <loc>https://smutuvi.github.io/blog/categories/2017/</loc>
     <lastmod>2017-03-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://smutuvi.github.io/blog/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/</loc>
+    <loc>https://smutuvi.github.io/blog/</loc>
     <lastmod>2017-03-03T21:48:51-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/post/</loc>
+    <loc>https://smutuvi.github.io/blog/post/</loc>
     <lastmod>2017-03-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://smutuvi.github.io/blog/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/tidyverse/</loc>
+    <loc>https://smutuvi.github.io/blog/tags/tidyverse/</loc>
     <lastmod>2017-03-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
