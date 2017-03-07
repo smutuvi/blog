@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Data Analytics</title>
-    <link>https://smutuvi.github.io/blog/post/index.xml</link>
+    <link>/post/index.xml</link>
     <description>Recent content in Posts on Data Analytics</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 03 Mar 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://smutuvi.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Twitter Analysis using R</title>
-      <link>https://smutuvi.github.io/blog/2017/03/03/twitter-data-analysis-with-r/</link>
+      <link>/2017/03/03/twitter-data-analysis-with-r/</link>
       <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://smutuvi.github.io/blog/2017/03/03/twitter-data-analysis-with-r/</guid>
-      <description>&lt;p&gt;In this blog, I am going to use various R packages mainly from the tidyverse package by &lt;a href=&#34;http://hadley.nz/&#34;&gt;Hadley wickham&lt;/a&gt; to analyze tweets from twitter archive of &lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordMwesh&lt;/a&gt; to find out his tweeting habits.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordMwesh&lt;/a&gt; is an ICT policy expert with vast experience in Internet governance. He was extremely instrumental in my formative stages of my career and continue to walk with me in my journey of data analytics. His twitting habits will be unravelled&lt;/p&gt;
+      <guid>/2017/03/03/twitter-data-analysis-with-r/</guid>
+      <description>&lt;p&gt;In this blog, I am going to use various R packages mainly from the tidyverse package by &lt;a href=&#34;http://hadley.nz/&#34;&gt;Hadley Wickham&lt;/a&gt; to analyze tweets from twitter archive of &lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordMwesh&lt;/a&gt; to find out his tweeting habits. The basis of the blog is a post by &lt;a href=&#34;http://juliasilge.com/blog/Ten-Thousand-Tweets&#34;&gt;Julia Silge&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordMwesh&lt;/a&gt; is an ICT policy expert with vast experience in Internet governance. He was extremely instrumental in my formative stages of my career and continue to walk with me in my journey of data analytics.&lt;/p&gt;
 &lt;p&gt;Twitter archive is a nice large dataset with results that can be interesting but not critical to the running of the world but its good enough for learning R statistical language. To download your twitter data browse to your Twitter Profile &amp;gt; Settings page, then click &lt;strong&gt;request your archive&lt;/strong&gt;. You should be able to download a .zip file with among other files, a nicely formated dataset of your tweets in form of an excel file.&lt;/p&gt;
 &lt;p&gt;The first step was to load the tweets and quick summary was able to show that lordMwesh had tweeted or retweeted 21447 times from the time he joined twitter&lt;/p&gt;
-&lt;p&gt;How has lordMwesh been tweeting over the years?&lt;/p&gt;
+&lt;p&gt;How has lordMwesh’s been tweeting over the years?&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt; lordMwesh joined twitter in 2009 with 2016 and 2012 being his most active years on twitter.&lt;/p&gt;
 &lt;p&gt;I then sought to identify how his tweeting pattern looked like over the days of the week and time of the day.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt; Monday and Friday turned out to be the most active days while sunday ranked the lowest. Generally, weekdays ranked high in terms of tweeting frequency, it is yet to be seen if the tweeting was productive or not.&lt;/p&gt;
@@ -27,6 +27,9 @@
 &lt;p&gt;&lt;img src=&#34;../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Lets get the number of tweets retweeted. It happens that majority of lordMwesh’s tweets were “original” tweets.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;How many tweets had hashtag compared to those without?&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;What words does lordMwesh use a lot in his tweets?&lt;/p&gt;
 </description>
     </item>
     
