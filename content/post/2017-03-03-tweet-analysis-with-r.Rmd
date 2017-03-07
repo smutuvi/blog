@@ -21,8 +21,11 @@ The first step was to load the tweets and quick summary was able to show that lo
 library(tidyverse)
 library(lubridate)
 library(scales)
+library(tm)
+library(stringr)
+library(wordcloud)
 
-tweets <- read.csv("data/tweets.csv", stringsAsFactors = FALSE)
+tweets <- read.csv("data/lordmwesh_tweets.csv", stringsAsFactors = FALSE)
 count_tweets <- tweets %>% summarise("Total Tweets"=n())
 count_tweets
 ```
@@ -94,3 +97,23 @@ ggplot(tweets, aes(factor(grepl("#", tweets$text)))) +
 ```
 
 What words does lordMwesh use a lot in his tweets?
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# word cloud
+nohandles <- str_replace_all(tweets$text, "@\\w+", "")
+wordCorpus <- Corpus(VectorSource(nohandles))
+wordCorpus <- tm_map(wordCorpus, removePunctuation)
+wordCorpus <- tm_map(wordCorpus, content_transformer(tolower))
+wordCorpus <- tm_map(wordCorpus, removeWords, stopwords("english"))
+wordCorpus <- tm_map(wordCorpus, removeWords, c("amp", "2yo", "3yo", "4yo"))
+wordCorpus <- tm_map(wordCorpus, stripWhitespace)
+
+# wordCorpus <- tm_map(wordCorpus, stemDocument)
+
+pal <- brewer.pal(9,"YlGnBu")
+pal <- pal[-(1:4)]
+set.seed(123)
+wordcloud(words = wordCorpus, scale=c(5,0.1), max.words=100, random.order=FALSE, 
+          rot.per=0.35, use.r.layout=FALSE, colors=pal)
+```
+
