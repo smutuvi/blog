@@ -89,7 +89,7 @@ How many tweets had hashtag compared to those without?
 
 ```{r warning=FALSE, message=FALSE, echo=FALSE}
 ggplot(tweets, aes(factor(grepl("#", tweets$text)))) +
-        geom_bar(fill = "midnightblue") + 
+        geom_bar(aes(fill = "midnightblue"),width = 0.3) + 
         theme(legend.position="none", axis.title.x = element_blank()) +
         ylab("Number of tweets") + 
         ggtitle("Tweets with Hashtags") +
