@@ -104,7 +104,8 @@ xlab(&quot;&quot;) + ylab(&quot;Number of tweets&quot;) +
 ggtitle(&quot;Retweeted or Not&quot;) +
   theme(legend.position = &quot;none&quot;) +
 scale_x_discrete(labels=c(&quot;Not Retweeted&quot;, &quot;Retweeted&quot;))</code></pre>
-<p><img src="../../../../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-6-1.png" width="672" /> It happens that majority of lordMwesh’s tweets were “original” tweets.</p>
+<p><img src="../../../../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>It happens that majority of lordMwesh’s tweets were “original” tweets.</p>
 <p>How many tweets had hashtag compared to those without?</p>
 <pre class="r"><code>ggplot(tweets, aes(factor(grepl(&quot;#&quot;, tweets$text)))) +
         geom_bar(fill = &quot;aquamarine4&quot;,width = 0.3) + 
@@ -135,7 +136,8 @@ namesCorpus &lt;- Corpus(VectorSource(friends))
 set.seed(146)
 wordcloud(words = namesCorpus, scale=c(3,0.5), max.words=50, random.order=FALSE, 
           rot.per=0.10, use.r.layout=FALSE, colors=pal)</code></pre>
-<p><img src="../../../../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-9-1.png" width="672" /> At least <a href="http://twitter.com/mutuvi">my name</a> made to the list</p>
+<p><img src="../../../../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>At least <a href="http://twitter.com/mutuvi">my name</a> made to the list</p>
 
     </div>
   </article>

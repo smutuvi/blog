@@ -87,6 +87,7 @@ ggtitle("Retweeted or Not") +
 scale_x_discrete(labels=c("Not Retweeted", "Retweeted"))
  
 ```
+
 It happens that majority of lordMwesh's tweets were "original" tweets.
 
 
@@ -131,5 +132,6 @@ set.seed(146)
 wordcloud(words = namesCorpus, scale=c(3,0.5), max.words=50, random.order=FALSE, 
           rot.per=0.10, use.r.layout=FALSE, colors=pal)
 ```
+
 At least [my name](http://twitter.com/mutuvi) made to the list
 

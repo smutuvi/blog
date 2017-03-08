@@ -54,7 +54,8 @@ xlab(&amp;quot;&amp;quot;) + ylab(&amp;quot;Number of tweets&amp;quot;) +
 ggtitle(&amp;quot;Retweeted or Not&amp;quot;) +
   theme(legend.position = &amp;quot;none&amp;quot;) +
 scale_x_discrete(labels=c(&amp;quot;Not Retweeted&amp;quot;, &amp;quot;Retweeted&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt; It happens that majority of lordMwesh’s tweets were “original” tweets.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;It happens that majority of lordMwesh’s tweets were “original” tweets.&lt;/p&gt;
 &lt;p&gt;How many tweets had hashtag compared to those without?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(tweets, aes(factor(grepl(&amp;quot;#&amp;quot;, tweets$text)))) +
         geom_bar(fill = &amp;quot;aquamarine4&amp;quot;,width = 0.3) + 
@@ -85,7 +86,8 @@ namesCorpus &amp;lt;- Corpus(VectorSource(friends))
 set.seed(146)
 wordcloud(words = namesCorpus, scale=c(3,0.5), max.words=50, random.order=FALSE, 
           rot.per=0.10, use.r.layout=FALSE, colors=pal)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt; At least &lt;a href=&#34;http://twitter.com/mutuvi&#34;&gt;my name&lt;/a&gt; made to the list&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;At least &lt;a href=&#34;http://twitter.com/mutuvi&#34;&gt;my name&lt;/a&gt; made to the list&lt;/p&gt;
 </description>
     </item>
     
