@@ -130,14 +130,13 @@ wordcloud(words = wordCorpus, scale=c(5,0.1), max.words=100, random.order=FALSE,
           rot.per=0.35, use.r.layout=FALSE, colors=pal)</code></pre>
 <p><img src="../../../../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Will, Can, Kenya and people are some of the frequently used words. The word “Internet” certainly had to make to this list considering lordmwesh’s zeal towards Internet governance</p>
-<p><strong>Which twitter handles has lordmwesh interacted with more, either through reply or retweet?</strong></p>
+<p>Which twitter handles has lordmwesh interacted with more, either through reply or retweet?</p>
 <pre class="r"><code>friends &lt;- str_extract_all(tweets$text, &quot;@\\w+&quot;)
 namesCorpus &lt;- Corpus(VectorSource(friends))
 set.seed(146)
 wordcloud(words = namesCorpus, scale=c(3,0.5), max.words=50, random.order=FALSE, 
           rot.per=0.10, use.r.layout=FALSE, colors=pal)</code></pre>
-<p><img src="../../../../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>At least <a href="http://twitter.com/mutuvi">my name</a> made to the list</p>
+<p><img src="../../../../post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-9-1.png" width="672" /> At least <a href="http://twitter.com/mutuvi">my name</a> made to the list</p>
 
     </div>
   </article>
