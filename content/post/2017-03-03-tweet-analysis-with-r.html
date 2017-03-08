@@ -15,15 +15,69 @@ tags:
 <p>Twitter archive is a nice large dataset with results that can be interesting but not critical to the running of the world but its good enough for learning R statistical language. To download your twitter data browse to your Twitter Profile &gt; Settings page, then click <strong>request your archive</strong>. You should be able to download a .zip file with among other files, a nicely formated dataset of your tweets in form of an excel file.</p>
 <p>The first step was to load the tweets and quick summary was able to show that lordMwesh had tweeted or retweeted 21447 times from the time he joined twitter</p>
 <p>How has lordMwesh’s been tweeting over the years?</p>
-<p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-2-1.png" width="672" /> lordMwesh joined twitter in 2009 with 2016 and 2012 being his most active years on twitter.</p>
+<p>We begin by formating the tweets timestamp using date functions from lubridate package. The ggplot package is then used to plot the tweet count over the years.</p>
+<pre class="r"><code>tweets$timestamp &lt;- ymd_hms(tweets$timestamp)
+tweets$timestamp &lt;- with_tz(tweets$timestamp, &quot;Africa/Nairobi&quot;)
+
+ggplot(data = tweets, aes(x = year(timestamp))) +
+  geom_histogram(breaks = seq(2008.5, 2018.5, by =1), aes(fill = ..count..)) +
+  theme(legend.position = &quot;none&quot;) +
+  ggtitle(&quot;Tweeting pattern over the years&quot;)+
+  xlab(&quot;Time&quot;) + ylab(&quot;Number of tweets&quot;) + 
+  scale_fill_gradient(low = &quot;midnightblue&quot;, high = &quot;aquamarine4&quot;)</code></pre>
+<p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-3-1.png" width="672" /> lordMwesh joined twitter in 2009 with 2016 and 2012 being his most active years on twitter.</p>
 <p>I then sought to identify how his tweeting pattern looked like over the days of the week and time of the day.</p>
-<p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-3-1.png" width="672" /> Monday and Friday turned out to be the most active days while sunday ranked the lowest. Generally, weekdays ranked high in terms of tweeting frequency, it is yet to be seen if the tweeting was productive or not.</p>
+<pre class="r"><code>ggplot(data = tweets, aes(x = wday(timestamp, label = TRUE))) +
+        geom_bar(aes(fill = ..count..)) +
+        ggtitle(&quot;Days of the week comparison&quot;)+
+        theme(legend.position = &quot;none&quot;) +
+        xlab(&quot;Day of the Week&quot;) + ylab(&quot;Number of tweets&quot;) + 
+        scale_fill_gradient(low = &quot;midnightblue&quot;, high = &quot;aquamarine4&quot;)</code></pre>
+<p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-4-1.png" width="672" /> Monday and Friday turned out to be the most active days while sunday ranked the lowest. Generally, weekdays ranked high in terms of tweeting frequency, it is yet to be seen if the tweeting was productive or not.</p>
 <p>Further to this, it was apparent that mid morning and late evening were the best time for lordMwesh to tweet. Howerver, signficant tweeting appears to have taken place at 3am, which calls for further analysis.</p>
-<p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>Lets get the number of tweets retweeted. It happens that majority of lordMwesh’s tweets were “original” tweets.</p>
+<pre class="r"><code>ggplot(data = tweets, aes(x = hour(timestamp))) +
+  geom_bar(aes(fill = ..count..)) +
+  theme(legend.position = &quot;none&quot;) +
+  ggtitle(&quot;Tweets by time of the day&quot;)+
+  xlab(&quot;Time&quot;) + ylab(&quot;Number of tweets&quot;) + 
+  scale_fill_gradient(low = &quot;midnightblue&quot;, high = &quot;aquamarine4&quot;)</code></pre>
 <p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Lets get the number of tweets retweeted?</p>
+<pre class="r"><code>ggplot(data=tweets, aes(factor(!is.na(retweeted_status_id)))) +
+geom_bar(aes(fill = factor(..count..)),  width = 0.3, stat=&quot;count&quot;) +
+xlab(&quot;&quot;) + ylab(&quot;Number of tweets&quot;) +
+ggtitle(&quot;Retweeted or Not&quot;) +
+  theme(legend.position = &quot;none&quot;) +
+scale_x_discrete(labels=c(&quot;Not Retweeted&quot;, &quot;Retweeted&quot;))</code></pre>
+<p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-6-1.png" width="672" /> It happens that majority of lordMwesh’s tweets were “original” tweets.</p>
 <p>How many tweets had hashtag compared to those without?</p>
-<p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>What words does lordMwesh use a lot in his tweets?</p>
+<pre class="r"><code>ggplot(tweets, aes(factor(grepl(&quot;#&quot;, tweets$text)))) +
+        geom_bar(fill = &quot;aquamarine4&quot;,width = 0.3) + 
+        theme(legend.position=&quot;none&quot;, axis.title.x = element_blank()) +
+        ylab(&quot;Number of tweets&quot;) + 
+        ggtitle(&quot;Tweets with Hashtags&quot;) +
+        scale_x_discrete(labels=c(&quot;No hashtags&quot;, &quot;Tweets with hashtags&quot;))</code></pre>
 <p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>What words does lordMwesh use a lot in his tweets?</p>
+<pre class="r"><code>nohandles &lt;- str_replace_all(tweets$text, &quot;@\\w+&quot;, &quot;&quot;)
+wordCorpus &lt;- Corpus(VectorSource(nohandles))
+wordCorpus &lt;- tm_map(wordCorpus, removePunctuation)
+wordCorpus &lt;- tm_map(wordCorpus, content_transformer(tolower))
+wordCorpus &lt;- tm_map(wordCorpus, removeWords, stopwords(&quot;english&quot;))
+wordCorpus &lt;- tm_map(wordCorpus, removeWords, c(&quot;amp&quot;, &quot;2yo&quot;, &quot;3yo&quot;, &quot;4yo&quot;))
+wordCorpus &lt;- tm_map(wordCorpus, stripWhitespace)
+
+pal &lt;- brewer.pal(9,&quot;YlGnBu&quot;)
+pal &lt;- pal[-(1:4)]
+set.seed(123)
+wordcloud(words = wordCorpus, scale=c(5,0.1), max.words=100, random.order=FALSE, 
+          rot.per=0.35, use.r.layout=FALSE, colors=pal)</code></pre>
+<p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Will, Can, Kenya and people are some of the frequently used words. The word “Internet” certainly had to make to this list considering lordmwesh’s zeal towards Internet governance</p>
+<p><strong>Which twitter handles has lordmwesh interacted with more, either through reply or retweet?</strong></p>
+<pre class="r"><code>friends &lt;- str_extract_all(tweets$text, &quot;@\\w+&quot;)
+namesCorpus &lt;- Corpus(VectorSource(friends))
+set.seed(146)
+wordcloud(words = namesCorpus, scale=c(3,0.5), max.words=50, random.order=FALSE, 
+          rot.per=0.10, use.r.layout=FALSE, colors=pal)</code></pre>
+<p><img src="/post/2017-03-03-tweet-analysis-with-r_files/figure-html/unnamed-chunk-9-1.png" width="672" /> At least <a href="http://twitter.com/mutuvi">my name</a> made to the list</p>

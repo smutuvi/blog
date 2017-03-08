@@ -32,13 +32,16 @@ count_tweets
 
 How has lordMwesh's been tweeting over the years?
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-tweets$timestamp <- ymd_hms(tweets$timestamp)
-tweets$timestamp <- with_tz(tweets$timestamp, "Africa/Nairobi")
+We begin by formating the tweets timestamp using date functions from lubridate package. The ggplot package is then used to plot the tweet count over the years.
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 # tweets <- tweets %>% group_by(year(timestamp)) %>% summarize(count=n())
 # tweets
-  
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+tweets$timestamp <- ymd_hms(tweets$timestamp)
+tweets$timestamp <- with_tz(tweets$timestamp, "Africa/Nairobi")
 
 ggplot(data = tweets, aes(x = year(timestamp))) +
   geom_histogram(breaks = seq(2008.5, 2018.5, by =1), aes(fill = ..count..)) +
@@ -51,7 +54,7 @@ lordMwesh joined twitter in 2009 with 2016 and 2012 being his most active years 
 
 I then sought to identify how his tweeting pattern looked like over the days of the week and time of the day. 
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
+```{r message=FALSE, warning=FALSE, echo=TRUE}
 ggplot(data = tweets, aes(x = wday(timestamp, label = TRUE))) +
         geom_bar(aes(fill = ..count..)) +
         ggtitle("Days of the week comparison")+
@@ -63,7 +66,7 @@ Monday and Friday turned out to be the most active days while sunday ranked the 
 
 Further to this, it was apparent that mid morning and late evening were the best time for lordMwesh to tweet. Howerver, signficant tweeting appears to have taken place at 3am, which calls for further analysis. 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 ggplot(data = tweets, aes(x = hour(timestamp))) +
   geom_bar(aes(fill = ..count..)) +
   theme(legend.position = "none") +
@@ -73,9 +76,9 @@ ggplot(data = tweets, aes(x = hour(timestamp))) +
 ```
 
 
-Lets get the number of tweets retweeted. It happens that majority of lordMwesh's tweets were "original" tweets.
+Lets get the number of tweets retweeted?
 
-```{r warning=FALSE, message=FALSE, echo=FALSE}
+```{r warning=FALSE, message=FALSE, echo=TRUE}
 ggplot(data=tweets, aes(factor(!is.na(retweeted_status_id)))) +
 geom_bar(aes(fill = factor(..count..)),  width = 0.3, stat="count") +
 xlab("") + ylab("Number of tweets") +
@@ -84,10 +87,12 @@ ggtitle("Retweeted or Not") +
 scale_x_discrete(labels=c("Not Retweeted", "Retweeted"))
  
 ```
+It happens that majority of lordMwesh's tweets were "original" tweets.
+
 
 How many tweets had hashtag compared to those without?
 
-```{r warning=FALSE, message=FALSE, echo=FALSE}
+```{r warning=FALSE, message=FALSE, echo=TRUE}
 ggplot(tweets, aes(factor(grepl("#", tweets$text)))) +
         geom_bar(fill = "aquamarine4",width = 0.3) + 
         theme(legend.position="none", axis.title.x = element_blank()) +
@@ -96,10 +101,10 @@ ggplot(tweets, aes(factor(grepl("#", tweets$text)))) +
         scale_x_discrete(labels=c("No hashtags", "Tweets with hashtags"))
 ```
 
+
 What words does lordMwesh use a lot in his tweets?
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-# word cloud
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 nohandles <- str_replace_all(tweets$text, "@\\w+", "")
 wordCorpus <- Corpus(VectorSource(nohandles))
 wordCorpus <- tm_map(wordCorpus, removePunctuation)
@@ -107,8 +112,6 @@ wordCorpus <- tm_map(wordCorpus, content_transformer(tolower))
 wordCorpus <- tm_map(wordCorpus, removeWords, stopwords("english"))
 wordCorpus <- tm_map(wordCorpus, removeWords, c("amp", "2yo", "3yo", "4yo"))
 wordCorpus <- tm_map(wordCorpus, stripWhitespace)
-
-# wordCorpus <- tm_map(wordCorpus, stemDocument)
 
 pal <- brewer.pal(9,"YlGnBu")
 pal <- pal[-(1:4)]
@@ -118,3 +121,15 @@ wordcloud(words = wordCorpus, scale=c(5,0.1), max.words=100, random.order=FALSE,
 ```
 
 Will, Can, Kenya and people are some of the frequently used words. The word "Internet" certainly had to make to this list considering lordmwesh's zeal towards Internet governance
+
+**Which twitter handles has lordmwesh interacted with more, either through reply or retweet?**
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+friends <- str_extract_all(tweets$text, "@\\w+")
+namesCorpus <- Corpus(VectorSource(friends))
+set.seed(146)
+wordcloud(words = namesCorpus, scale=c(3,0.5), max.words=50, random.order=FALSE, 
+          rot.per=0.10, use.r.layout=FALSE, colors=pal)
+```
+At least [my name](http://twitter.com/mutuvi) made to the list
+
