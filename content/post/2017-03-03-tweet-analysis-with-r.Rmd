@@ -24,10 +24,16 @@ library(stringr)
 library(wordcloud)
 library(syuzhet)
 library(reshape2)
-
+# library(tidytext)
+getwd()
 tweets <- read.csv("data/lordmwesh_tweets.csv", stringsAsFactors = FALSE)
 count_tweets <- tweets %>% summarise("Total Tweets"=n())
 count_tweets
+colnames(tweets)
+lordmwesh_Sentiment <- get_nrc_sentiment(tweets$text)
+tweets <- cbind(tweets, lordmwesh_Sentiment)
+sentimentTotals <- data.frame(colSums(tweets[,c(11:18)]))
+names(sentimentTotals) <- "count"
 ```
 
 How has lordMwesh's been tweeting over the years?

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tidyverse on Data Analytics</title>
-    <link>/tags/tidyverse/index.xml</link>
+    <link>https://smutuvi.github.io/blog/tags/tidyverse/index.xml</link>
     <description>Recent content in Tidyverse on Data Analytics</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://smutuvi.github.io/blog/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Twitter Analysis using R</title>
-      <link>/2017/03/03/twitter-data-analysis-with-r/</link>
+      <link>https://smutuvi.github.io/blog/2017/03/03/twitter-data-analysis-with-r/</link>
       <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/03/03/twitter-data-analysis-with-r/</guid>
+      <guid>https://smutuvi.github.io/blog/2017/03/03/twitter-data-analysis-with-r/</guid>
       <description>&lt;p&gt;In this blog, I am going to use various R packages mainly from the tidyverse package by &lt;a href=&#34;http://hadley.nz/&#34;&gt;Hadley Wickham&lt;/a&gt; to analyze tweets from twitter archive of &lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordMwesh&lt;/a&gt; with a view of establishing his tweeting habits. The basis of the blog is a post by &lt;a href=&#34;http://juliasilge.com/blog/Ten-Thousand-Tweets&#34;&gt;Julia Silge&lt;/a&gt;. &lt;a href=&#34;https://twitter.com/lordmwesh&#34;&gt;lordMwesh&lt;/a&gt; is an ICT policy expert with vast experience in Internet governance.&lt;/p&gt;
 &lt;p&gt;Twitter archive is a nice large dataset with results that can be interesting and is good enough for those interested in learning R statistical language. To download your twitter data, browse to your Twitter Profile &amp;gt; Settings page, then click &lt;strong&gt;request your archive&lt;/strong&gt;. A download link will be send to your email address that allows you download a .zip file which contains among other files, a nicely formated dataset of your tweets in form of an excel file.&lt;/p&gt;
 &lt;p&gt;The first step after obtaining the dataset was to load the tweets.csv file. A quick summary was able to show that lordMwesh had tweeted or retweeted 21,447 times since joining twitter.&lt;/p&gt;

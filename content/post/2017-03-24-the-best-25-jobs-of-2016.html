@@ -1,0 +1,23 @@
+---
+title: The Best Jobs of 2016 
+date: '2017-03-24'
+slug: the-best-25-jobs-of-2016
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<link href="/rmarkdown-libs/plotlyjs/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/plotlyjs/plotly-latest.min.js"></script>
+<script src="/rmarkdown-libs/plotly-binding/plotly.js"></script>
+
+<p>Which jobs are considered to offer great potential for earnings and opportunity?</p>
+<p><a href="https://www.glassdoor.com">glassdoor.com</a>, one of the fastest growing career website provides company reviews, ratings, salaries, approval rating among other human resource related information. Considerable amounts of data have been generated courtesy of the platform, forming an interesting dataset that can be analysed for insight.</p>
+<p>Based on three factors namely, the number of job openings, earnings potential as measured by median base salary, and the rating of the career opportunity, glassdoor complied a list of the “best” jobs in america in 2016. Only jobs titles that received at least 75 salary reviews and 75 career opportunity reviews were considered.</p>
+<p>In this post the <a href="https://www.glassdoor.com/List/Best-Jobs-in-America-2016-LST_KQ0,25.htm">the top 25 jobs</a> are analysed and visualized using R programming language. The data was curated into a csv file with additional column <em>SECTOR</em> included. We begin by loading the requisite packages for analysis and visualization, which packages are part of the tidyverse package by <a href="http://hadley.nz/">Hadley Wickham</a>. The csv data is also read as a dataframe.</p>
+<p><strong>Which job had the highest rating?</strong></p>
+<p>Data scientist had the highest rating in the US is 2016 and was rated at 4.1. This was the only job title that registered over 4.0 rating.</p>
+<p><strong>How were the ratings across the various sectors?</strong></p>
+<p>The finance sector had 9 jobs while ICT had 8 slots making it to the to 25 list.</p>
+<p><strong>Which job had the highest number of openings?</strong></p>
+<p>Software engineering had a whooping 49,270 job openings in 2016. Product manager and Nurse practitioner came a distance 2nd and 3rd respectively. The huge number of software engineering positions can be attributed to organizations’ desire to automate their business processes.</p>
+<p><strong>Where is the Money?</strong></p>
+<p>Software development manager had the highest base salary in 2016. The annual base salary was $135,000. Other positions that made it to top 5 list included Strategy manager, Software architect, Engagement manager and Solutions architecture. Data scientist was ranked sixth with an annual salary of $116,840.</p>
