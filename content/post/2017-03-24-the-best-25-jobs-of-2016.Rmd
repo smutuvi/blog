@@ -10,7 +10,7 @@ Which jobs are considered to offer great potential for earnings and opportunity?
 
 Based on three factors namely, the number of job openings, earnings potential as measured by median base salary, and the rating of the career opportunity, glassdoor complied a list of the "best" jobs in america in 2016. Only jobs titles that received at least 75 salary reviews and 75 career opportunity reviews were considered. 
 
-In this post the [the top 25 jobs](https://www.glassdoor.com/List/Best-Jobs-in-America-2016-LST_KQ0,25.htm) are analysed and visualized using R programming language. The data was curated into a csv file with additional column *SECTOR* included. We begin by loading the requisite packages for analysis and visualization, which packages are part of the tidyverse package by [Hadley Wickham](http://hadley.nz/). The csv data is also read as a dataframe.  
+In this post [the top 25 jobs](https://www.glassdoor.com/List/Best-Jobs-in-America-2016-LST_KQ0,25.htm) are analysed and visualized using R programming language. The data was curated into a csv file with additional column *SECTOR* included. We begin by loading the requisite packages for analysis and visualization, which packages are part of the tidyverse package by [Hadley Wickham](http://hadley.nz/). The csv data is also read as a dataframe.  
 
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
@@ -36,7 +36,7 @@ Data scientist had the highest rating in the US is 2016 and was rated at 4.1. Th
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 plt_rating_per_sector <- top_jobs %>% 
                          ggplot(aes(x = reorder(factor(SECTOR), -RATING), fill = factor(SECTOR), y = RATING, group_by(SECTOR))) + 
-                         geom_dotplot(size=5, binaxis = "y", stackdir = "center", color = "gold", dotsize = 1.5) +
+                         geom_dotplot(binaxis = "y", stackdir = "center", color = "gold", dotsize = 1.5) +
                          labs(title = "JOB RATINGS PER SECTOR", x ="SECTOR") +
                          theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 plt_rating_per_sector
