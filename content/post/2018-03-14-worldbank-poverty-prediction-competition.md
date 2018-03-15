@@ -110,7 +110,7 @@ c_train.poor.value_counts().plot.bar(title='Number of Poor for country C')
 ```
 ![A Train Distribution](/images/all_train_distribution.png)
 
-Clearly, from the above visualizations countries B and C's datasets were imbalanced. These datasets were resampled using Synthetic Minority Over-sampling Technique (SMOTE) in order to boost the prediction accuracy. (elitedatascience.com)(https://elitedatascience.com/imbalanced-classes) provides further information on how to deal with imbalanced classes in machine learning. 
+Clearly, from the above visualizations countries B and C's datasets were imbalanced. These datasets were resampled using Synthetic Minority Over-sampling Technique (SMOTE) in order to boost the prediction accuracy. [Elitedatascience.com](https://elitedatascience.com/imbalanced-classes) provides further information on how to deal with imbalanced classes in machine learning. 
 ```python
 sm = SMOTE(random_state=12, ratio = 1.0)
 # upsample b
