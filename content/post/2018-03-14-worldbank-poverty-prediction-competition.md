@@ -17,7 +17,7 @@ Recently the world bank conducted the [Poverty-T Tests: Predicting Poverty](http
 Training and test data with anonymized qualitative variables from household survey of 3 different countries was provided. The challenge entailed building classification models to accurately classify household as either poor or not poor based on test data for the 3 countries. [Mean log loss](https://en.wikipedia.org/wiki/Loss_functions_for_classification) was used as the measure of model's performance.
 
 
-In this post, I will describe my clasification model submitted to the contes. The solution is best suited for those starting the Machine Learning journey.
+In this post, I will describe my clasification model submitted to the contest. The solution is best suited for those starting the Machine Learning journey.
 
 To get started, the required modules are imported 
 ```python
