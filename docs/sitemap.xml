@@ -1,51 +1,83 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://smutuvi.github.io/blog/2017/03/24/the-best-25-jobs-of-2016/</loc>
+    <loc>/2018/03/14/worldbank-poverty-prediction-competition/</loc>
+    <lastmod>2018-03-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/03/24/the-best-25-jobs-of-2016/</loc>
     <lastmod>2017-03-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://smutuvi.github.io/blog/about/</loc>
+    <loc>/about/</loc>
     <lastmod>2017-03-03T21:48:51-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://smutuvi.github.io/blog/2017/03/03/twitter-data-analysis-with-r/</loc>
+    <loc>/2017/03/03/twitter-data-analysis-with-r/</loc>
     <lastmod>2017-03-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://smutuvi.github.io/blog/categories/2017/</loc>
+    <loc>/categories/2017/</loc>
     <lastmod>2017-03-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://smutuvi.github.io/blog/categories/</loc>
+    <loc>/categories/2018/</loc>
+    <lastmod>2018-03-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://smutuvi.github.io/blog/</loc>
-    <lastmod>2017-03-24T00:00:00+00:00</lastmod>
+    <loc>/categories/</loc>
+    <lastmod>2017-03-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://smutuvi.github.io/blog/post/</loc>
-    <lastmod>2017-03-24T00:00:00+00:00</lastmod>
+    <loc>/</loc>
+    <lastmod>2018-03-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://smutuvi.github.io/blog/tags/</loc>
+    <loc>/tags/driven-data/</loc>
+    <lastmod>2018-03-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://smutuvi.github.io/blog/tags/tidyverse/</loc>
+    <loc>/tags/lightgbm/</loc>
+    <lastmod>2018-03-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2018-03-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2018-03-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2018-03-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tidyverse/</loc>
     <lastmod>2017-03-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

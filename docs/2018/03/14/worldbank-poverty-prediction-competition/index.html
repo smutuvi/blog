@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<title>World bank&#39;s Poverty Prediction Competition - Data Analytics</title>
+<meta property="og:title" content="World bank&#39;s Poverty Prediction Competition - Data Analytics">
+
+
+
+  
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://smutuvi.github.io/" class="nav-logo">
+    <img src="../../../../images/logo.png" 
+         width="100" 
+         height="100" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="https://smutuvi.github.io/blog/about">About</a></li>
+    
+    <li><a href="https://smutuvi.github.io/blog">Blog</a></li>
+    
+    <li><a href="https://github.com/smutuvi/blog">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/smutuvi">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">5 min read</span>
+    
+
+    <h1 class="article-title">World bank&#39;s Poverty Prediction Competition</h1>
+
+    
+    <span class="article-date">March 14, 2018</span>
+    
+
+    <div class="article-content">
+      <p>Measuring poverty remains an herculean task. This is because collection of detailed data on household is expensive and at the same time consuming. Use of machine learning techniques can assist organizations such as world bank and their development partner predict household&rsquo;s poverty status more accurately and efficiently.Such accurate poverty measures provides a more solid empirical foundation of policy</p>
+
+<p>Recently the world bank conducted the <a href="https://www.drivendata.org/competitions/50/worldbank-poverty-prediction/">Poverty-T Tests: Predicting Poverty</a> competition, which was hosted on <a href="https://www.drivendata.org/">Driven Data</a> platform, similar to the <a href="https://www.kaggle.com/">kaggle</a> competition platform.</p>
+
+<p>Training and test data with anonymized qualitative variables from household survey of 3 different countries was provided. The challenge entailed building classification models to accurately classify household as eiter poor or not poor based on test data for the 3 countries. <a href="https://en.wikipedia.org/wiki/Loss_functions_for_classification">Mean log loss</a> was used as the measure of model&rsquo;s performance.</p>
+
+<p>In this post, I will share my clasification model which acts as a good starting point for Machine Learning beginners.</p>
+
+<p>To get started, the required modules are imported</p>
+
+<pre><code class="language-python">%matplotlib inline
+import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+from operator import itemgetter
+from sklearn import cross_validation, metrics
+import datetime
+from sklearn.metrics import (roc_curve, auc, accuracy_score, mean_squared_error)
+from sklearn.model_selection import GridSearchCV
+import lightgbm as lgb
+from lightgbm import LGBMClassifier
+from imblearn.over_sampling import SMOTE
+from collections import Counter
+# data directory
+DATA_DIR = os.path.join('.', 'data', 'processed')
+</code></pre>
+
+<p>The data is then loaded. In this case only the household-leve data was loaded. The data can be downloaded from the <a href="https://www.drivendata.org/competitions/50/worldbank-poverty-prediction/data/">competition&rsquo;s data download page.</a></p>
+
+<pre><code class="language-python">data_paths = {'A': {'train': os.path.join(DATA_DIR, 'A', 'A_hhold_train.csv'), 
+                    'test':  os.path.join(DATA_DIR, 'A', 'A_hhold_test.csv')}, 
+              
+              'B': {'train': os.path.join(DATA_DIR, 'B', 'B_hhold_train.csv'), 
+                    'test':  os.path.join(DATA_DIR, 'B', 'B_hhold_test.csv')}, 
+              
+              'C': {'train': os.path.join(DATA_DIR, 'C', 'C_hhold_train.csv'), 
+                    'test':  os.path.join(DATA_DIR, 'C', 'C_hhold_test.csv')}}
+                    
+# load training data
+a_train = pd.read_csv(data_paths['A']['train'], index_col='id')
+b_train = pd.read_csv(data_paths['B']['train'], index_col='id')
+c_train = pd.read_csv(data_paths['C']['train'], index_col='id')
+
+# load test data
+# load test data
+a_test = pd.read_csv(data_paths['A']['test'], index_col='id')
+b_test = pd.read_csv(data_paths['B']['test'], index_col='id')
+c_test = pd.read_csv(data_paths['C']['test'], index_col='id')
+</code></pre>
+
+<p><strong>Data Pre-processing</strong></p>
+
+<p>The code below standardizes and converts object types to categoricals.</p>
+
+<pre><code class="language-python"># Standardize features
+def standardize(df, numeric_only=True):
+    numeric = df.select_dtypes(include=['int64', 'float64'])
+    # subtracy mean and divide by std
+    df[numeric.columns] = (numeric - numeric.mean()) / numeric.std()
+    return df
+def pre_process_data(df, enforce_cols=None):
+    print(&quot;Input shape:\t{}&quot;.format(df.shape))
+    df = standardize(df)
+    print(&quot;After standardization {}&quot;.format(df.shape))
+    # create dummy variables for categoricals
+    df = pd.get_dummies(df)
+    print(&quot;After converting categoricals:\t{}&quot;.format(df.shape))
+    # match test set and training set columns
+    if enforce_cols is not None:
+        to_drop = np.setdiff1d(df.columns, enforce_cols)
+        to_add = np.setdiff1d(enforce_cols, df.columns)
+        df.drop(to_drop, axis=1, inplace=True)
+        df = df.assign(**{c: 0 for c in to_add})
+    df.fillna(0, inplace=True)
+    return df
+</code></pre>
+
+<p>We call the above functions</p>
+
+<pre><code class="language-python"># pre-process the training data
+aX_train = pre_process_data(a_train.drop('poor', axis=1))
+ay_train = np.ravel(a_train.poor)
+bX_train = pre_process_data(b_train.drop('poor', axis=1))
+by_train = np.ravel(b_train.poor)
+cX_train = pre_process_data(c_train.drop('poor', axis=1))
+cy_train = np.ravel(c_train.poor)
+# Pre-process test data
+a_test = pre_process_data(a_test, enforce_cols=aX_train.columns)
+b_test = pre_process_data(b_test, enforce_cols=bX_train.columns)
+c_test = pre_process_data(c_test, enforce_cols=cX_train.columns)
+
+</code></pre>
+
+<p>How is the distribution of the dataset?</p>
+
+<pre><code class="language-python, echo=TRUE, message=FALSE, warning=FALSE">a_train.poor.value_counts().plot.bar(title='Number of Poor for country A')
+b_train.poor.value_counts().plot.bar(title='Number of Poor for country B')
+c_train.poor.value_counts().plot.bar(title='Number of Poor for country C')
+</code></pre>
+
+<p><img src="../../../../images/all_train_distribution.png" alt="A Train Distribution" /></p>
+
+<p>It is evident from the above visualizations that countries B and C&rsquo;s dataset was imbalanced. These datasets were resampled using Synthetic Minority Over-sampling Technique (SMOTE) in order to Boost the prediction accuracy. Follow <a href="https://elitedatascience.com/imbalanced-classes">this link</a> to learn more about dealing with imbalanced classes in machine learning.</p>
+
+<pre><code class="language-python">sm = SMOTE(random_state=12, ratio = 1.0)
+# upsample b
+bX_train_sm, by_train_sm = sm.fit_sample(bX_train, by_train)
+print (&quot;Distribution of class labels before resampling {}&quot;.format(Counter(by_train)))
+print (&quot;Distribution of class labels after resampling {}&quot;.format(Counter(by_train_sm)))
+#upsample c
+cX_train_sm, cy_train_sm = sm.fit_sample(cX_train, cy_train)
+print (&quot;Distribution of class labels before resampling {}&quot;.format(Counter(cy_train)))
+print (&quot;Distribution of class labels after resampling {}&quot;.format(Counter(cy_train_sm)))
+
+</code></pre>
+
+<p><strong>Hyperparameter Optimization and Model Fitting</strong>
+This is arguably the most important step and as a matter of fact the main determinant of classification accuracy. Lightgbm, a gradient boosting framework by microsoft that uses tree based learning algorithms <a href="https://en.wikipedia.org/wiki/Hyperparameter_optimization">Grid search</a>  was used to determine the best parameters that yield an optimal model which minimizes the log loss.</p>
+
+<pre><code class="language-python">def create_model (features, labels, **kwargs):
+    params = {'boosting_type': 'gbdt',
+              'max_depth' : -1,
+              'objective': 'binary', 
+              'nthread': 5, # Updated from nthread
+              'num_leaves': 64, 
+              'learning_rate': 0.05, 
+              'max_bin': 512, 
+              'subsample_for_bin': 200,
+              'subsample': 1, 
+              'subsample_freq': 1, 
+              'colsample_bytree': 0.8, 
+              'reg_alpha': 5, 
+              'reg_lambda': 10,
+              'min_split_gain': 0.5, 
+              'min_child_weight': 1, 
+              'min_child_samples': 5, 
+              'scale_pos_weight': 1,
+              'num_class' : 1,
+              'metric' : 'binary_logloss'}
+    # Create parameters to search
+    gridParams = {
+        'learning_rate': [0.01, 0.1],
+        'n_estimators': [50,100],
+        'num_leaves': [6,8,12,16],
+        'boosting_type' : ['gbdt'],
+        'objective' : ['binary'],
+        'random_state' : [501], # Updated from 'seed'
+        'colsample_bytree' : [0.64, 0.65, 0.66],
+        'subsample' : [0.7,0.75],
+        'reg_alpha' : [1,1.2],
+        'reg_lambda' : [1,1.2,1.4],
+        }
+    # Create classifier to use. Note in this case the parameters have to be input manually; not as a dict!
+    mdl = lgb.LGBMClassifier(boosting_type= 'gbdt', 
+              objective = 'binary', 
+              n_jobs = 5, # Updated from 'nthread' 
+              silent = True,
+              max_depth = params['max_depth'],
+              max_bin = params['max_bin'], 
+              subsample_for_bin = params['subsample_for_bin'],
+              subsample = params['subsample'], 
+              subsample_freq = params['subsample_freq'], 
+              min_split_gain = params['min_split_gain'], 
+              min_child_weight = params['min_child_weight'], 
+              min_child_samples = params['min_child_samples'], 
+              scale_pos_weight = params['scale_pos_weight'])
+    # To view the default model params:
+    mdl.get_params().keys()
+    # Create the grid
+    grid = GridSearchCV(mdl, gridParams, verbose=0, cv=4, n_jobs=-1)
+    # Run the grid
+    grid.fit(features, labels)
+    # Print the best parameters found
+    print(grid.best_params_)
+    print(grid.best_score_)
+    # Using parameters already set above, replace in the best from the grid search
+    params['colsample_bytree'] = grid.best_params_['colsample_bytree']
+    params['learning_rate'] = grid.best_params_['learning_rate'] 
+    params['num_leaves'] = grid.best_params_['num_leaves']
+    params['reg_alpha'] = grid.best_params_['reg_alpha']
+    params['reg_lambda'] = grid.best_params_['reg_lambda']
+    params['subsample'] = grid.best_params_['subsample']
+    return mdl
+</code></pre>
+
+<p><strong>Training the model</strong></p>
+
+<pre><code class="language-python">model_a = create_model(aX_train, ay_train)
+model_b = create_model(bX_train_sm, by_train_sm)
+model_c = create_model(cX_train_sm, cy_train_sm)
+</code></pre>
+
+<p><strong>Make predictions</strong></p>
+
+<pre><code class="language-python">a_preds = model_a.predict_proba(a_test)
+b_preds = model_b.predict_proba(b_test)
+c_preds = model_c.predict_proba(c_test)
+</code></pre>
+
+<p>The competition attracted a total of 2310 competitors. Though I was not able to make it to the price category, I managed to rank among the top 20%. As a beginner and this being my inaugural machine learning competition, participating in the competition offered a great learning experience</p>
+
+<p><img src="../../../../images/rank_poverty_prediction.jpg?raw=true" alt="Final Rank" title="Title" /></p>
+
+    </div>
+  </article>
+
+  
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'https-smutuvi-github-io-blog';
+  var disqus_url = 'https:\/\/simecek.github.io\/blog' + '\/2018\/03\/14\/worldbank-poverty-prediction-competition\/';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="../../../../images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/r.min.js"></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
+    
+    <script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    });
+    </script>
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-90647482-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+  </body>
+</html>
+

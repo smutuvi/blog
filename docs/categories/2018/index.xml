@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2018 on Data Analytics</title>
+    <link>/categories/2018/</link>
+    <description>Recent content in 2018 on Data Analytics</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 14 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/2018/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>World bank&#39;s Poverty Prediction Competition</title>
+      <link>/2018/03/14/worldbank-poverty-prediction-competition/</link>
+      <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/03/14/worldbank-poverty-prediction-competition/</guid>
+      <description>Measuring poverty remains an herculean task. This is because collection of detailed data on household is expensive and at the same time consuming. Use of machine learning techniques can assist organizations such as world bank and their development partner predict household&amp;rsquo;s poverty status more accurately and efficiently.Such accurate poverty measures provides a more solid empirical foundation of policy
+Recently the world bank conducted the Poverty-T Tests: Predicting Poverty competition, which was hosted on Driven Data platform, similar to the kaggle competition platform.</description>
+    </item>
+    
+  </channel>
+</rss>
