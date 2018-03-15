@@ -124,6 +124,7 @@ print ("Distribution of class labels after resampling {}".format(Counter(cy_trai
 
 ```
 **Hyperparameter Optimization and Model Fitting**
+
 This is arguably the most important step and as a matter of fact the main determinant of classification accuracy. Lightgbm, a gradient boosting framework by microsoft that uses tree based learning algorithms was selected. [Grid search](https://en.wikipedia.org/wiki/Hyperparameter_optimization)  was used to determine the best parameters that yield an optimal model which minimizes the log loss. 
 ```python
 def create_model (features, labels, **kwargs):
