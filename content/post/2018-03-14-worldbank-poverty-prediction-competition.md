@@ -10,14 +10,14 @@ tags:
   - lightgbm
   - driven data
 ---
-Measuring poverty remains an herculean task. This is because collection of detailed data on household is expensive and at the same time consuming. Use of machine learning techniques can assist organizations such as world bank and their development partner predict household's poverty status more accurately and efficiently.Such accurate poverty measures provides a more solid empirical foundation of policy
+Measuring poverty remains a herculean task. This is because collection of detailed data on household is expensive and at the same time consuming. Use of machine learning techniques can assist organizations such as world bank and their development partners to predict household's poverty status more accurately and efficiently.Such accurate poverty measures provides a more solid empirical foundation of policy.
 
 Recently the world bank conducted the [Poverty-T Tests: Predicting Poverty](https://www.drivendata.org/competitions/50/worldbank-poverty-prediction/) competition, which was hosted on [Driven Data](https://www.drivendata.org/) platform, similar to the [kaggle](https://www.kaggle.com/) competition platform. 
 
-Training and test data with anonymized qualitative variables from household survey of 3 different countries was provided. The challenge entailed building classification models to accurately classify household as eiter poor or not poor based on test data for the 3 countries. [Mean log loss](https://en.wikipedia.org/wiki/Loss_functions_for_classification) was used as the measure of model's performance.
+Training and test data with anonymized qualitative variables from household survey of 3 different countries was provided. The challenge entailed building classification models to accurately classify household as either poor or not poor based on test data for the 3 countries. [Mean log loss](https://en.wikipedia.org/wiki/Loss_functions_for_classification) was used as the measure of model's performance.
 
 
-In this post, I will share my clasification model which acts as a good starting point for Machine Learning beginners.
+In this post, I will describe my clasification model submitted to the contest. The solution is best suited for those starting the Machine Learning journey.
 
 To get started, the required modules are imported 
 ```python
@@ -39,7 +39,7 @@ from collections import Counter
 # data directory
 DATA_DIR = os.path.join('.', 'data', 'processed')
 ```
-The data is then loaded. In this case only the household-leve data was loaded. The data can be downloaded from the [competition's data download page.](https://www.drivendata.org/competitions/50/worldbank-poverty-prediction/data/)
+The household-level data was loaded. The dataset can be downloaded from the [competition's data download page.](https://www.drivendata.org/competitions/50/worldbank-poverty-prediction/data/)
 ```python
 data_paths = {'A': {'train': os.path.join(DATA_DIR, 'A', 'A_hhold_train.csv'), 
                     'test':  os.path.join(DATA_DIR, 'A', 'A_hhold_test.csv')}, 
@@ -87,7 +87,7 @@ def pre_process_data(df, enforce_cols=None):
     df.fillna(0, inplace=True)
     return df
 ```
-We call the above functions
+We call the above functions and perform the data pre-processing
 ```python 
 # pre-process the training data
 aX_train = pre_process_data(a_train.drop('poor', axis=1))
@@ -110,7 +110,7 @@ c_train.poor.value_counts().plot.bar(title='Number of Poor for country C')
 ```
 ![A Train Distribution](/images/all_train_distribution.png)
 
-It is evident from the above visualizations that countries B and C's dataset was imbalanced. These datasets were resampled using Synthetic Minority Over-sampling Technique (SMOTE) in order to Boost the prediction accuracy. Follow [this link](https://elitedatascience.com/imbalanced-classes) to learn more about dealing with imbalanced classes in machine learning. 
+Clearly, from the above visualizations countries B and C's datasets were imbalanced. These datasets were resampled using Synthetic Minority Over-sampling Technique (SMOTE) in order to Boost the prediction accuracy. Follow [this link](https://elitedatascience.com/imbalanced-classes) to learn more about dealing with imbalanced classes in machine learning. 
 ```python
 sm = SMOTE(random_state=12, ratio = 1.0)
 # upsample b
@@ -124,7 +124,7 @@ print ("Distribution of class labels after resampling {}".format(Counter(cy_trai
 
 ```
 **Hyperparameter Optimization and Model Fitting**
-This is arguably the most important step and as a matter of fact the main determinant of classification accuracy. Lightgbm, a gradient boosting framework by microsoft that uses tree based learning algorithms [Grid search](https://en.wikipedia.org/wiki/Hyperparameter_optimization)  was used to determine the best parameters that yield an optimal model which minimizes the log loss. 
+This is arguably the most important step and as a matter of fact the main determinant of classification accuracy. Lightgbm, a gradient boosting framework by microsoft that uses tree based learning algorithms was selected. [Grid search](https://en.wikipedia.org/wiki/Hyperparameter_optimization)  was used to determine the best parameters that yield an optimal model which minimizes the log loss. 
 ```python
 def create_model (features, labels, **kwargs):
     params = {'boosting_type': 'gbdt',
