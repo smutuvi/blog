@@ -17,7 +17,7 @@ Recently the world bank conducted the [Poverty-T Tests: Predicting Poverty](http
 Training and test data with anonymized qualitative variables from household survey of 3 different countries was provided. The challenge entailed building classification models to accurately classify household as either poor or not poor based on test data for the 3 countries. [Mean log loss](https://en.wikipedia.org/wiki/Loss_functions_for_classification) was used as the measure of model's performance.
 
 
-In this post, I will describe my clasification model submitted to the contest. The solution is best suited for those starting the Machine Learning journey.
+In this post, I will describe my clasification model submitted to the contes. The solution is best suited for those starting the Machine Learning journey.
 
 To get started, the required modules are imported 
 ```python
@@ -87,7 +87,7 @@ def pre_process_data(df, enforce_cols=None):
     df.fillna(0, inplace=True)
     return df
 ```
-We call the above functions and perform the data pre-processing
+We call the above functions and process the datasets
 ```python 
 # pre-process the training data
 aX_train = pre_process_data(a_train.drop('poor', axis=1))
@@ -110,7 +110,7 @@ c_train.poor.value_counts().plot.bar(title='Number of Poor for country C')
 ```
 ![A Train Distribution](/images/all_train_distribution.png)
 
-Clearly, from the above visualizations countries B and C's datasets were imbalanced. These datasets were resampled using Synthetic Minority Over-sampling Technique (SMOTE) in order to Boost the prediction accuracy. Follow [this link](https://elitedatascience.com/imbalanced-classes) to learn more about dealing with imbalanced classes in machine learning. 
+Clearly, from the above visualizations countries B and C's datasets were imbalanced. These datasets were resampled using Synthetic Minority Over-sampling Technique (SMOTE) in order to Boost the prediction accuracy. (elitedatascience.com)(https://elitedatascience.com/imbalanced-classes) to learn more about dealing with imbalanced classes in machine learning. 
 ```python
 sm = SMOTE(random_state=12, ratio = 1.0)
 # upsample b
