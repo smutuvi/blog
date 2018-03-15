@@ -203,7 +203,7 @@ a_preds = model_a.predict_proba(a_test)
 b_preds = model_b.predict_proba(b_test)
 c_preds = model_c.predict_proba(c_test)
 ```
-The competition attracted a total of 2310 competitors. Though I was not able to make it to the price category, I managed to rank among the top 20%. As a beginner and this being my inaugural machine learning competition, participating in the competition offered a great learning experience
+The competition attracted a total of 2310 competitors. Though I was not able able to win a prize, I managed to rank among the top 20%. As a beginner and this being my inaugural machine learning competition, participating in the competition offered a great learning experience
 
-![Final Rank](/images/rank_poverty_prediction.jpg?raw=true "Title")
+![Final Rank](/images/rank_poverty_prediction.JPG?raw=true "Title")
 
