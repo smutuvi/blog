@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Data Analytics</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 14 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Crowdfunding</title>
+      <link>/tags/crowdfunding/</link>
+      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/crowdfunding/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Driven Data</title>
@@ -26,6 +35,15 @@
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/lightgbm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Non Profit Organization</title>
+      <link>/tags/non-profit-organization/</link>
+      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/non-profit-organization/</guid>
       <description></description>
     </item>
     

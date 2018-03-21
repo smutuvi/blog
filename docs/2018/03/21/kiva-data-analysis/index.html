@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<title>Estimating welfare of borrowers by analysing Kiva dataset - part I - Data Analytics</title>
+<meta property="og:title" content="Estimating welfare of borrowers by analysing Kiva dataset - part I - Data Analytics">
+
+
+
+  
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://smutuvi.github.io/" class="nav-logo">
+    <img src="../../../../images/logo.png" 
+         width="100" 
+         height="100" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="https://smutuvi.github.io/blog/about">About</a></li>
+    
+    <li><a href="https://smutuvi.github.io/blog">Blog</a></li>
+    
+    <li><a href="https://github.com/smutuvi/blog">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/smutuvi">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">Estimating welfare of borrowers by analysing Kiva dataset - part I</h1>
+
+    
+    <span class="article-date">March 21, 2018</span>
+    
+
+    <div class="article-content">
+      <p><a href="https://www.kiva.org/">Kiva</a> is an online lending platform connecting online lenders to entrepreneurs across the globe. Kiva’s mission is <strong>to connect people through lending to alleviate poverty.</strong> Kiva relies on a network of field partners to administer the loans on the ground. These field partners can be microfinance institutions, social businesses, schools or non-profit organizations. Kiva does not collect any interest on the loans it facilitates and is supported by grants, loans, and donations from the platform’s users.</p>
+<p>Recently, Kiva invited the <a href="https://www.kaggle.com/kiva/data-science-for-good-kiva-crowdfunding">kaggle</a> community to assist build more localized models to estimate the welfare of residents in the regions where Kiva has active loans. In this post we start by gleaning insights through analysis and visualization of the data provided by Kiva. Special attention is paid to borrowing patterns from Kenya.</p>
+<p>We begin by loading the data and the requisite R libraries.</p>
+<pre class="r"><code>loans_df &lt;- read_csv(&#39;data/kiva/kiva_loans.csv&#39;)</code></pre>
+<p>The dataset comprise a total of <strong>617,205</strong> loans, funding <strong>163</strong> activities in <strong>15</strong> sectors in <strong>87</strong> countries. Kiva loans are issued across a total of <strong>12,696</strong> regions in the different countries with <strong>67</strong> different currencies.</p>
+<p><strong>Sectors, top 20 activities, countries and regions by number of loans</strong></p>
+<p>Kenya ranked second with a total of <strong>75,825</strong> loans having been issued. Philippines tops the list with <strong>160,441</strong> loans while El Salvado was third with a totals of <strong>39,875</strong> loans. Uganda and Nigeria were the only other countries that featured among the top 20 countries. Whether these countries are among the most active in microfinance in Africa or not, is subject to further investigation.</p>
+<p><img src="../../../../post/2018-03-19-kiva-data-analysis_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><strong>Loan Statistics for Kenyan borrowers?</strong></p>
+<p>A total of <strong>KES34,534,300</strong> has been disbused to <strong>75,825</strong> borrowers in across <strong>393</strong> regions in Kenya. Kisii region account for the highest number of loans with a total of <strong>3546</strong> loans issued.The graph below show the top <strong>20</strong> regions in Kenya by number of loans.Most loan applications did not however capture the region.</p>
+<p><img src="../../../../post/2018-03-19-kiva-data-analysis_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><strong>Which were the top funded sectors and activities by Kenyan borrowers?</strong></p>
+<p>Over 50% of loans issued were directed to the agricultural sector. This was followed by food and retail at 14 and 13.5 respectively. Farming on the other hand was the highest funded activity from Kiva loans. <img src="../../../../post/2018-03-19-kiva-data-analysis_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="../../../../post/2018-03-19-kiva-data-analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" /> <strong>Distribution of female and male borrowers</strong> <img src="../../../../post/2018-03-19-kiva-data-analysis_files/figure-html/unnamed-chunk-7-1.png" width="672" /> <strong>Which activities did the different genders direct their loans to?</strong></p>
+<p>Both the female and male gender mostly used their loans to fund agriculture and health. The least amount of loan for the female was directed to manufacturing while for male was towards clothing. <img src="../../../../post/2018-03-19-kiva-data-analysis_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="../../../../post/2018-03-19-kiva-data-analysis_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>In part II of the post, we shall combine Kiva data with data from other related sources and attempt to determine the well-being of people in the different regions in Kenya.</p>
+<p>Mobile payment and credit data from the banks, if available, would be a valuable source of data. Perhaps going forward, telcos and other institutions in Kenya can consider anonymizing and releasing these datasets. This will go a long way in promoting data analytics for social good and in general invigorating the Artificial Intelligence ecosystem in Kenya.</p>
+<p><strong>Email:</strong> <a href="mailto:stevemutuvi@gmail.com">stevemutuvi@gmail.com</a></p>
+
+    </div>
+  </article>
+
+  
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'https-smutuvi-github-io-blog';
+  var disqus_url = 'https:\/\/simecek.github.io\/blog' + '\/2018\/03\/21\/kiva-data-analysis\/';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="../../../../images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/r.min.js"></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
+    
+    <script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    });
+    </script>
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-90647482-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+  </body>
+</html>
+

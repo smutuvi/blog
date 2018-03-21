@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dapps on Data Analytics</title>
+    <link>/tags/dapps/</link>
+    <description>Recent content in Dapps on Data Analytics</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 15 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/dapps/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Demystifying Blockchain Technology</title>
+      <link>/2018/03/15/demystifying-blockchain-technology/</link>
+      <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/03/15/demystifying-blockchain-technology/</guid>
+      <description>The ICT cabinet secretary, Mr Joe mucheru, recently unveiled a Blockchain and Artificial Intelligence (AI) taskforce. The taskforce, whose chair is Prof. Bitange Ndemo was mandated to come up with policies to guide the adoption and diffusion of the two technologies in the various sectors of Kenya&amp;rsquo;s economy (the taskforce, whose chair is Prof. Bitange Ndemo will focus on how the country can leverage on blockchain and AI technologies). The team will come up with policies and will champion the deployment of the advancing technologies.</description>
+    </item>
+    
+  </channel>
+</rss>

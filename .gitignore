@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+docs/post/data/kiva/kiva_loans.csv
+content/post/data/kiva/kiva_loans.csv

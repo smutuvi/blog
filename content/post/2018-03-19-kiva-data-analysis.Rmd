@@ -1,0 +1,184 @@
+---
+title: Estimating welfare of borrowers by analysing Kiva dataset - part I 
+author: mutuvi
+date: '2018-03-21'
+slug: kiva-data-analysis
+categories:
+  - '2018'
+tags:
+  - crowdfunding
+  - non-profit organization
+---
+
+[Kiva](https://www.kiva.org/) is an online lending platform connecting online lenders to entrepreneurs across the globe. Kiva's mission is **to connect people through lending to alleviate poverty.** Kiva relies on a network of field partners to administer the loans on the ground. These field partners can be microfinance institutions, social businesses, schools or non-profit organizations. Kiva does not collect any interest on the loans it facilitates and is supported by grants, loans, and donations from the platform's users.
+
+Recently, Kiva invited the [kaggle](https://www.kaggle.com/kiva/data-science-for-good-kiva-crowdfunding) community to assist build more localized models to estimate the welfare of residents in the regions where Kiva has active loans. 
+In this post we start by gleaning insights through analysis and visualization of the data provided by Kiva. Special attention is paid to borrowing patterns from Kenya. 
+
+We begin by loading the data and the requisite R libraries.
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+library(dplyr)
+library(ggplot2)
+library(treemap)
+library(gridExtra)
+library(grid)
+library(fmsb)
+library(leaflet)
+library(readr)
+library(knitr)
+library(kableExtra)
+library(formattable)
+library(plotly)
+# packageVersion('plotly')
+```
+```{r, echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
+loans_df <- read_csv('data/kiva/kiva_loans.csv')
+```
+The dataset comprise a total of **617,205** loans, funding **163** activities in **15** sectors in **87** countries. Kiva loans are issued across a total of **12,696** regions in the different countries with **67** different currencies.
+
+**Sectors, top 20 activities, countries and regions by number of loans**
+
+Kenya ranked second with a total of **75,825** loans having been issued. Philippines tops the list with **160,441** loans while El Salvado was third with a totals of **39,875** loans. 
+Uganda and Nigeria were the only other countries that featured among the top 20 countries. Whether these countries are among the most active in microfinance in Africa or not, is subject to further investigation.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+loans_df %>% group_by(sector) %>% summarise(nr = length(activity))  %>% ungroup() %>%
+  ggplot(aes(x = reorder(sector,nr), y = nr)) +
+  geom_bar(stat="identity", fill="lightblue", colour="black") +
+  #geom_text(aes(label=nr), hjust=0.2, position=position_dodge(width=0.6)) +
+  coord_flip() + theme_bw(base_size = 10)  +
+  labs(title="", x ="Sector (all)", y = "Number of loans") -> d1
+
+loans_df %>% group_by(activity) %>% summarise(nr = length(sector)) %>% top_n(20,wt=nr) %>% ungroup() %>%
+  ggplot(aes(x = reorder(activity,nr), y = nr)) +
+  geom_bar(stat="identity", fill="gold", colour="black") +
+  #geom_text(aes(label=nr), hjust=-0.2, position=position_dodge(width=0.6)) +
+  coord_flip() + theme_bw(base_size = 10)  +
+  labs(title="", x ="Activities (top 20 by number of loans)", y = "Number of loans") -> d2
+
+loans_df %>% group_by(country) %>% summarise(nr = length(sector)) %>% top_n(20,wt=nr) %>% ungroup() %>%
+  ggplot(aes(x = reorder(country,nr), y = nr)) +
+  geom_bar(stat="identity", fill="tomato", colour="black") +
+  #geom_text(aes(label=nr), hjust=-0.2, position=position_dodge(width=0.6)) +
+  coord_flip() + theme_bw(base_size = 10)  +
+  labs(title="", x ="Countries (top 20 by number of loans)", y = "Number of loans") -> d3
+
+loans_df %>% group_by(region) %>% summarise(nr = length(sector)) %>% top_n(20,wt=nr) %>% ungroup() %>%
+  ggplot(aes(x = reorder(region,nr), y = nr)) +
+  geom_bar(stat="identity", fill="lightgreen", colour="black") +
+  #geom_text(aes(label=nr), hjust=-0.2, position=position_dodge(width=0.6)) +
+  coord_flip() + theme_bw(base_size = 10)  +
+  labs(title="", x ="Regions (top 20 by number of loans)", y = "Number of loans") -> d4
+grid.arrange(d1, d2, d3, d4, ncol=2)
+```
+
+**Loan Statistics for Kenyan borrowers?**
+
+A total of **KES34,534,300** has been disbused to **75,825** borrowers in across **393** regions in Kenya. Kisii region account for the highest number of loans with a total of **3546** loans issued.The graph below show the top **20** regions in Kenya by number of loans.Most loan applications did not however capture the region.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+loans_df %>% filter(country=="Kenya") %>% group_by(region) %>% summarise(nr = length(sector)) %>% top_n(20,wt=nr) %>% ungroup() %>%
+  ggplot(aes(x = reorder(region,nr), y = nr)) +
+  geom_bar(stat="identity", fill="lightblue", colour="black") +
+  #geom_text(aes(label=nr), hjust=-0.2, position=position_dodge(width=0.6)) +
+  coord_flip() + theme_bw(base_size = 10)  +
+  labs(title="", x ="Regions in Kenya", y = "Number of loans") 
+```
+
+**Which were the top funded sectors and activities by Kenyan borrowers?**
+
+Over 50% of loans issued were directed to the agricultural sector. This was followed by food and retail at 14 and 13.5 respectively. Farming on the other hand was the highest funded activity from Kiva loans. 
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+loans_df %>% filter(country=="Kenya") %>% group_by(sector) %>% summarise(nr = length(activity))  %>% ungroup() %>%
+  ggplot(aes(x = reorder(sector,nr), y = nr)) +
+  geom_bar(stat="identity", fill="lightgreen", colour="black") +
+  #geom_text(aes(label=nr), hjust=0.2, position=position_dodge(width=0.6)) +
+  coord_flip() + theme_bw(base_size = 10)  +
+  labs(title="", x ="Sector", y = "Number of loans") -> d1
+
+loans_df %>% filter(country=="Kenya") %>% group_by(activity) %>% summarise(nr = length(sector)) %>% top_n(20,wt=nr) %>% ungroup() %>%
+  ggplot(aes(x = reorder(activity,nr), y = nr)) +
+  geom_bar(stat="identity", fill="gold", colour="black") +
+  #geom_text(aes(label=nr), hjust=-0.2, position=position_dodge(width=0.6)) +
+  coord_flip() + theme_bw(base_size = 10)  +
+  labs(title="", x ="Activities (top 20 by number of loans)", y = "Number of loans") -> d2
+grid.arrange(d1, d2, ncol=2)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+loans_df %>% filter(country=="Kenya") %>% group_by(sector, activity) %>% summarise(nr = length(region)) %>% top_n(5,wt=nr) %>% ungroup() %>%
+  treemap(
+    index=c("sector","activity"), 
+    type="value",
+    vSize = "nr",  
+    vColor = "nr",
+    palette = "RdBu",  
+    title=sprintf("Loans per sector and activity"), 
+    title.legend = "Number of loans",
+    fontsize.title = 14 
+  )
+```
+**Distribution of female and male borrowers**
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# gender
+strcount <- function(x, pattern, split){
+  unlist(lapply(strsplit(x, split), function(z) na.omit(length(grep(pattern, z)))))
+}
+loans_df$nMale <- strcount(loans_df$borrower_genders, "^male", " ")
+loans_df$nFemale = strcount(loans_df$borrower_genders, "female", " ")
+
+loans_df$borrowers_gen = "Not specified"
+loans_df$borrowers_gen[(loans_df$nMale != 0 & loans_df$nFemale == 0)] = "Male"
+loans_df$borrowers_gen[(loans_df$nMale == 0 & loans_df$nFemale != 0)] = "Female"
+loans_df$borrowers_gen[(loans_df$nMale != 0 & loans_df$nFemale != 0)] = "Female & Male"
+
+loans_df %>% filter(country=="Kenya") %>% group_by(borrowers_gen) %>% summarise(nr = length(borrower_genders)) %>% ungroup() %>%
+  ggplot(aes(x = reorder(borrowers_gen,nr), y = nr/1000)) +
+  geom_bar(stat="identity", aes(fill=borrowers_gen), colour="black") +
+  theme_bw(base_size = 12)  +
+  labs(title="Number of loans/borrowers per gender", x ="Gender", y = "Number of loans (thousands)", fill="Borrowers genders")
+
+loans_df %>% filter(country=="Kenya") %>% group_by(sector) %>% summarise(nrF = mean(nFemale))  %>% ungroup() %>%
+  ggplot(aes(x = reorder(sector,nrF), y = nrF)) +
+  geom_bar(stat="identity", fill="tomato", colour="black") +
+  coord_flip() + theme_bw(base_size = 10)  +
+  labs(title="Average number of female borrowers", subtitle="Activities funded by female borrowers", 
+       x ="Sector", y = "Average number of female borrowers") -> d1
+```
+**Which activities did the different genders direct their loans to?**
+
+Both the female and male gender mostly used their loans to fund agriculture and health. The least amount of loan for the female was directed to manufacturing while for male was towards clothing.
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+loans_df %>% filter(country=="Kenya")  %>% group_by(sector) %>% summarise(nrM = mean(nMale))  %>% ungroup() %>%
+  ggplot(aes(x = reorder(sector,nrM), y = nrM)) +
+  geom_bar(stat="identity", fill="lightblue", colour="black") +
+  coord_flip() + theme_bw(base_size = 10)  +
+  labs(title="Average number of male borrowers", subtitle="Activities funded by male borrowers",
+       x ="Sector", y = "Average number of male borrowers") -> d2
+grid.arrange(d1,d2,ncol=2)
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+loans_df  %>% filter(country=="Kenya") %>% group_by(sector) %>% ungroup() %>%
+  ggplot(aes(x=reorder(sector,nFemale), y= nFemale, col=sector)) + 
+  geom_boxplot() +
+  theme_bw() + coord_flip() + labs(x="Sector", y="Number of female borrowers", col="Sector",
+                                   title="Boxplot distribution | female",
+                                   subtitle="Grouped by sector") -> d3
+loans_df %>% filter(country=="Kenya") %>% group_by(sector) %>% ungroup() %>%
+  ggplot(aes(x=reorder(sector,nMale), y= nMale, col=sector)) + 
+  geom_boxplot() +
+  theme_bw() + coord_flip() + labs(x="Sector", y="Number of male borrowers", col="Sector",
+                                   title="Boxplot distribution | male",
+                                   subtitle="Grouped by sector") -> d4
+grid.arrange(d3,d4,ncol=2)
+```
+
+In part II of the post, we shall combine Kiva data with data from other related sources and attempt to determine the well-being of people in the different regions in Kenya.
+
+Mobile payment and credit data from the banks, if available, would be a valuable source of data.
+Perhaps going forward, telcos and other institutions in Kenya can consider anonymizing and releasing these datasets. 
+This will go a long way in promoting data analytics for social good and in general invigorating the Artificial Intelligence ecosystem in Kenya.
+
+**Email:** stevemutuvi@gmail.com 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Crowdfunding on Data Analytics</title>
+    <link>/tags/crowdfunding/</link>
+    <description>Recent content in Crowdfunding on Data Analytics</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 21 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/crowdfunding/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Estimating welfare of borrowers by analysing Kiva dataset - part I</title>
+      <link>/2018/03/21/kiva-data-analysis/</link>
+      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/03/21/kiva-data-analysis/</guid>
+      <description>Kiva is an online lending platform connecting online lenders to entrepreneurs across the globe. Kiva’s mission is to connect people through lending to alleviate poverty. Kiva relies on a network of field partners to administer the loans on the ground. These field partners can be microfinance institutions, social businesses, schools or non-profit organizations. Kiva does not collect any interest on the loans it facilitates and is supported by grants, loans, and donations from the platform’s users.</description>
+    </item>
+    
+  </channel>
+</rss>
