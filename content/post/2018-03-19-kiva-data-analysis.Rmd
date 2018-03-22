@@ -16,7 +16,7 @@ Recently, Kiva invited the [kaggle](https://www.kaggle.com/kiva/data-science-for
 In this post we start by gleaning insights through analysis and visualization of the data provided by Kiva. Special attention is paid to borrowing patterns from Kenya. 
 
 We begin by loading the data and the requisite R libraries.
-```{r, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
 library(dplyr)
 library(ggplot2)
 library(treemap)
@@ -41,7 +41,7 @@ The dataset comprise a total of **617,205** loans, funding **163** activities in
 Kenya ranked second with a total of **75,825** loans having been issued. Philippines tops the list with **160,441** loans while El Salvado was third with a totals of **39,875** loans. 
 Uganda and Nigeria were the only other countries that featured among the top 20 countries. Whether these countries are among the most active in microfinance in Africa or not, is subject to further investigation.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
 loans_df %>% group_by(sector) %>% summarise(nr = length(activity))  %>% ungroup() %>%
   ggplot(aes(x = reorder(sector,nr), y = nr)) +
   geom_bar(stat="identity", fill="lightblue", colour="black") +
@@ -76,7 +76,7 @@ grid.arrange(d1, d2, d3, d4, ncol=2)
 
 A total of **KES34,534,300** has been disbused to **75,825** borrowers in across **393** regions in Kenya. Kisii region account for the highest number of loans with a total of **3546** loans issued.The graph below show the top **20** regions in Kenya by number of loans.Most loan applications did not however capture the region.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
 loans_df %>% filter(country=="Kenya") %>% group_by(region) %>% summarise(nr = length(sector)) %>% top_n(20,wt=nr) %>% ungroup() %>%
   ggplot(aes(x = reorder(region,nr), y = nr)) +
   geom_bar(stat="identity", fill="lightblue", colour="black") +
@@ -88,7 +88,7 @@ loans_df %>% filter(country=="Kenya") %>% group_by(region) %>% summarise(nr = le
 **Which were the top funded sectors and activities by Kenyan borrowers?**
 
 Over 50% of loans issued were directed to the agricultural sector. This was followed by food and retail at 14 and 13.5 respectively. Farming on the other hand was the highest funded activity from Kiva loans. 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
 loans_df %>% filter(country=="Kenya") %>% group_by(sector) %>% summarise(nr = length(activity))  %>% ungroup() %>%
   ggplot(aes(x = reorder(sector,nr), y = nr)) +
   geom_bar(stat="identity", fill="lightgreen", colour="black") +
@@ -105,7 +105,7 @@ loans_df %>% filter(country=="Kenya") %>% group_by(activity) %>% summarise(nr = 
 grid.arrange(d1, d2, ncol=2)
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
 loans_df %>% filter(country=="Kenya") %>% group_by(sector, activity) %>% summarise(nr = length(region)) %>% top_n(5,wt=nr) %>% ungroup() %>%
   treemap(
     index=c("sector","activity"), 
@@ -119,7 +119,7 @@ loans_df %>% filter(country=="Kenya") %>% group_by(sector, activity) %>% summari
   )
 ```
 **Distribution of female and male borrowers**
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
 # gender
 strcount <- function(x, pattern, split){
   unlist(lapply(strsplit(x, split), function(z) na.omit(length(grep(pattern, z)))))
@@ -148,7 +148,7 @@ loans_df %>% filter(country=="Kenya") %>% group_by(sector) %>% summarise(nrF = m
 **Which activities did the different genders direct their loans to?**
 
 Both the female and male gender mostly used their loans to fund agriculture and health. The least amount of loan for the female was directed to manufacturing while for male was towards clothing.
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
 loans_df %>% filter(country=="Kenya")  %>% group_by(sector) %>% summarise(nrM = mean(nMale))  %>% ungroup() %>%
   ggplot(aes(x = reorder(sector,nrM), y = nrM)) +
   geom_bar(stat="identity", fill="lightblue", colour="black") +
@@ -159,7 +159,7 @@ grid.arrange(d1,d2,ncol=2)
 ```
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
 loans_df  %>% filter(country=="Kenya") %>% group_by(sector) %>% ungroup() %>%
   ggplot(aes(x=reorder(sector,nFemale), y= nFemale, col=sector)) + 
   geom_boxplot() +
